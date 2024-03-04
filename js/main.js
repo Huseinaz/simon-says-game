@@ -18,11 +18,32 @@ function resetGame() {
   computerColor = [];
   userColors = [];
   level = 0;
+  updateScoreLabels();
   playBtn.textContent = "PLAY";
 }
 
 function addToPattern() {
   computerColor.push(Math.floor(Math.random() * 4));
+}
+
+function checkUserColors() {
+  for (let i = 0; i < userColors.length; i++) {
+      if (userColors[i] !== computerColor[i]) {
+          gameOver();
+          return;
+      }
+  }
+  if (userColors.length === computerColor.length) {
+      if (level === 11) {
+          gameWin();
+          return;
+      }
+      level++;
+      addToPattern();
+      userColors = [];
+      updateScoreLabels();
+      highlightPattern();
+  }
 }
 
 function highlightColorTile(color) {
@@ -54,6 +75,14 @@ function disableUserClicks() {
 
 function enableUserClicks() {
   board.classList.remove("unclickable");
+}
+
+function updateScoreLabels() {
+  levelLabel.textContent = level;
+  if (level > highScore) {
+    highScore = level;
+    highScoreLabel.textContent = highScore;
+  }
 }
 
 playBtn.addEventListener("click", () => {
