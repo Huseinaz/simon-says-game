@@ -69,6 +69,14 @@ function highlightPattern() {
   }, 1000);
 }
 
+function handleTileClick(event) {
+  if (board.classList.contains("unclickable")) return;
+  const color = event.target.dataset.tile;
+  userColors.push(colors.indexOf(color));
+  highlightColorTile(color);
+  checkUserColors();
+}
+
 function disableUserClicks() {
   board.classList.add("unclickable");
 }
@@ -85,9 +93,23 @@ function updateScoreLabels() {
   }
 }
 
+function gameOver() {
+  playSound("game-over");
+  disableUserClicks();
+  alert("Game Over!");
+  resetGame();
+}
+
+function gameWin() {
+  playSound("game-win");
+  alert("You Won!");
+  resetGame();
+}
+
 playBtn.addEventListener("click", () => {
   resetGame();
   addToPattern();
+  highlightPattern();
 });
 
 document.querySelectorAll(".tile").forEach(tile => {
