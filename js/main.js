@@ -25,6 +25,28 @@ function addToPattern() {
   computerColor.push(Math.floor(Math.random() * 4));
 }
 
+function highlightPattern() {
+  disableUserClicks();
+  let i = 0;
+  const interval = setInterval(() => {
+      if (i >= computerColor.length) {
+          clearInterval(interval);
+          enableUserClicks();
+          return;
+      }
+      highlightColorTile(colors[computerColor[i]]);
+      i++;
+  }, 1000);
+}
+
+function disableUserClicks() {
+  board.classList.add("unclickable");
+}
+
+function enableUserClicks() {
+  board.classList.remove("unclickable");
+}
+
 playBtn.addEventListener("click", () => {
   resetGame();
   addToPattern();
