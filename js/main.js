@@ -8,3 +8,17 @@ const board = document.querySelector(".board");
 const highScoreLabel = document.getElementById("high-score");
 const levelLabel = document.getElementById("level");
 const playBtn = document.getElementById("play");
+
+function playSound(color) {
+  const audio = new Audio(`./sounds/${color}.mp3`);
+  audio.play();
+}
+
+function addToPattern() {
+  computerColor.push(Math.floor(Math.random() * 4));
+}
+
+playBtn.addEventListener("click", () => {
+  resetGame();
+  addToPattern();
+});
