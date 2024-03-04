@@ -14,6 +14,13 @@ function playSound(color) {
   audio.play();
 }
 
+function resetGame() {
+  computerColor = [];
+  userColors = [];
+  level = 0;
+  playBtn.textContent = "PLAY";
+}
+
 function addToPattern() {
   computerColor.push(Math.floor(Math.random() * 4));
 }
