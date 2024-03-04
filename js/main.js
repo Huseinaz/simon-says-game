@@ -25,17 +25,26 @@ function addToPattern() {
   computerColor.push(Math.floor(Math.random() * 4));
 }
 
+function highlightColorTile(color) {
+  const tile = document.querySelector(`[data-tile="${color}"]`);
+  tile.classList.remove("inactive");
+  playSound(color);
+  setTimeout(() => {
+    tile.classList.add("inactive");
+  }, 500);
+}
+
 function highlightPattern() {
   disableUserClicks();
   let i = 0;
   const interval = setInterval(() => {
-      if (i >= computerColor.length) {
-          clearInterval(interval);
-          enableUserClicks();
-          return;
-      }
-      highlightColorTile(colors[computerColor[i]]);
-      i++;
+    if (i >= computerColor.length) {
+      clearInterval(interval);
+      enableUserClicks();
+      return;
+    }
+    highlightColorTile(colors[computerColor[i]]);
+    i++;
   }, 1000);
 }
 
@@ -50,4 +59,8 @@ function enableUserClicks() {
 playBtn.addEventListener("click", () => {
   resetGame();
   addToPattern();
+});
+
+document.querySelectorAll(".tile").forEach(tile => {
+  tile.addEventListener("click", handleTileClick);
 });
